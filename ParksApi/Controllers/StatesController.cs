@@ -45,5 +45,53 @@ namespace ParksApi.Controllers
       return CreatedAtAction(nameof(GetState), new { id = state.StateId }, state);
     }
 
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Put(int id, State state)
+    {
+      if (id != state.StateId)
+      {
+        return BadRequest();
+      }
+
+      _db.States.Update(state);
+
+      try
+      {
+        await _db.SaveChangesAsync();
+      }
+      catch (DbUpdateConcurrencyException)
+      {
+        if (!StateExists(id))
+        {
+          return NotFound();
+        }
+        else
+        {
+          throw;
+        }
+      }
+
+      return NoContent();
+    }
+
+    private bool StateExists(int id)
+    {
+      return _db.States.Any(e => e.StateId == id);
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteState(int id)
+    {
+      State state = await _db.States.FindAsync(id);
+      if (state == null)
+      {
+        return NotFound();
+      }
+
+      _db.States.Remove(state);
+      await _db.SaveChangesAsync();
+
+      return NoContent();
+    }
   }
 }
