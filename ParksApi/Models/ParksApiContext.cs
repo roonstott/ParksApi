@@ -21,9 +21,9 @@ public class ParksApiContext : DbContext
 
       builder.Entity<Park>()
         .HasData(
-          new Park { ParkId = 1, Name = "Crater Lake", Description = "A high elevation lake in the crater of an exploded volcano", StateId = 1},
-          new Park { ParkId = 2, Name = "Yosemite", Description = "A forested valley high in the Sierra Nevada mountains, enclosed by towering granite cliffs with cascading waterfalls", StateId = 3},
-          new Park { ParkId = 3, Name = "Mount Rainier", Description = "A 14,410 active volcano with extensive (but shrinking) glacier fields. Beloved for alpine meadows carpeted in summer wildflowers", StateId = 2});
+          new Park { ParkId = 1, Name = "Crater Lake", Description = "A high elevation lake in the crater of an exploded volcano", StateId = 1, StateName = "Oregon"},
+          new Park { ParkId = 2, Name = "Yosemite", Description = "A forested valley high in the Sierra Nevada mountains, enclosed by towering granite cliffs with cascading waterfalls", StateId = 3, StateName = "California"},
+          new Park { ParkId = 3, Name = "Mount Rainier", Description = "A 14,410 active volcano with extensive (but shrinking) glacier fields. Beloved for alpine meadows carpeted in summer wildflowers", StateId = 2, StateName = "Washington"});
     }
 
 }
