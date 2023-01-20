@@ -16,9 +16,21 @@ namespace ParksApi.Controllers
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Park>>> Get()
+    public async Task<List<Park>> Get(string name, string stateName)
     {      
-      return await _db.Parks.ToListAsync();
+      IQueryable<Park> query = _db.Parks.AsQueryable();
+
+      if (name != null)
+      {
+        query = query.Where(entry => entry.Name.Contains(name));
+      }
+      if (stateName != null)
+      {
+        query = query.Where(entry => entry.StateName.Contains(stateName));
+      }
+
+      return await query.ToListAsync();
+
     }
 
     [HttpGet("{id}")]
