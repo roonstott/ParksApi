@@ -1,8 +1,12 @@
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+
+
 
 namespace ParksApi.Models;
 
-public class ParksApiContext : DbContext
+public class ParksApiContext : IdentityDbContext<ApplicationUser>
+
 {
   public DbSet<Park> Parks { get; set; }
   public DbSet<State> States { get; set; }
