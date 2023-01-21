@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ParksApi.Models;
 
-public class ParksApiContext : DbContext //: IdentityDbContext<ApplicationUser>
+public class ParksApiContext : DbContext 
 
 {
   public DbSet<Park> Parks { get; set; }

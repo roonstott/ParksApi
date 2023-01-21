@@ -1,0 +1,17 @@
+@{
+  Layout = "_Layout";
+}
+
+@using ParksApi.Models
+
+<h2>LogIn Successful!</h2>
+
+<ul>
+@foreach (Park park in Model)
+{
+  <li>@park.Name</li>
+}
+</ul>
+
+<a href="http://localhost:5000/swagger/index.html">Test Out the API In Swagger</a>
+
