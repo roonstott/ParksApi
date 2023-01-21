@@ -42,7 +42,7 @@ namespace ParksApi.Controllers;
       var token = new JwtSecurityToken(
         issuer: "http://localhost:5000",
         audience: "http://localhost:5000",
-        expires: DateTime.Now.AddMinutes(10),
+        expires: DateTime.Now.AddMinutes(20),
         signingCredentials: credentials
         );  
       return new JwtSecurityTokenHandler().WriteToken(token);
@@ -52,7 +52,7 @@ namespace ParksApi.Controllers;
       var cookieOptions = new CookieOptions
       {
         HttpOnly = true,
-        Expires = DateTime.UtcNow.AddMinutes(10),
+        Expires = DateTime.UtcNow.AddMinutes(20),
       };
       Response.Cookies.Append("jwtCookie", token, cookieOptions);
     }
