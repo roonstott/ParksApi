@@ -38,7 +38,7 @@ namespace ParksApi.Controllers
 
     [HttpGet("{id}")]
     public async Task<ActionResult<Park>> GetPark(int id)
-    {      
+    {
       Park park = await _db.Parks.FirstOrDefaultAsync(p => p.ParkId == id);
 
       if (park == null)

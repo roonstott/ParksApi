@@ -6,18 +6,14 @@ using System.Text;
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 
 builder.Services.AddControllersWithViews().AddJsonOptions(x =>
                 x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
-// builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-//                 .AddEntityFrameworkStores<ParksApiContext>()
-//                 .AddDefaultTokenProviders();
 
 builder.Services.AddAuthentication(options =>
     {
@@ -35,7 +31,7 @@ builder.Services.AddAuthentication(options =>
             ValidateAudience = true,
             ValidAudience = "http://localhost:5000",
             ValidIssuer = "http://localhost:5000",
-            ClockSkew = TimeSpan.Zero,// It forces tokens to expire exactly at token expiration time instead of 5 minutes later
+            ClockSkew = TimeSpan.Zero,
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("MynameisJamesBond007"))
         };
     });
@@ -50,7 +46,34 @@ builder.Services.AddDbContext<ParksApiContext>(
                 );
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
+builder.Services.AddSwaggerGen(c =>
+{
+    c.AddSecurityDefinition("bearerAuth", new OpenApiSecurityScheme      
+      {
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        Scheme = "bearer",
+        BearerFormat = "JWT",
+        In = ParameterLocation.Header,
+        Description = "JWT Authorization header using the Bearer scheme."
+      });
+
+      c.AddSecurityRequirement(new OpenApiSecurityRequirement
+      {
+        {
+          new OpenApiSecurityScheme
+            {
+              Reference = new OpenApiReference 
+              { 
+                Type = ReferenceType.SecurityScheme, 
+                Id = "bearerAuth" 
+              }
+            },
+            new string[] {}
+        }
+      });
+});
 
 var app = builder.Build();
 

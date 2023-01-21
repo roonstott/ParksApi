@@ -7,7 +7,7 @@ using ParksApi.Models;
 using Newtonsoft.Json;
 
 namespace ParksApi.Controllers;
-// [ApiExplorerSettings(IgnoreApi = true)]
+[ApiExplorerSettings(IgnoreApi = true)]
   public class AccountController : Controller
   {  
 
@@ -61,6 +61,7 @@ namespace ParksApi.Controllers;
     public async Task<IActionResult> Validation()
     {
         var jwt = Request.Cookies["jwtCookie"];
+        ViewBag.Token = jwt;
     
         using (var httpClient = new HttpClient())
         {
