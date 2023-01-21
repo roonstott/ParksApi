@@ -5,7 +5,9 @@
 @using ParksApi.Models
 
 <h2>LogIn Successful!</h2>
+<p>You have been issued a JWT and are authorized to make API calls from ParksApi</p>
 
+<p>Here's are a few of the parks on the West Coast:</p>
 <ul>
 @foreach (Park park in Model)
 {
@@ -13,5 +15,7 @@
 }
 </ul>
 
-<a href="http://localhost:5000/swagger/index.html">Test Out the API In Swagger</a>
+<p>Got to swagger to test out all of the API methods: http://localhost:5000/swagger/index.html</p>
+
+<a href="http://localhost:5000/swagger/">Test Out the API In Swagger</a>
 

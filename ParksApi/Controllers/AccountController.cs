@@ -1,27 +1,15 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Net.Http.Headers;
 using System.Text;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using ParksApi.Models;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace ParksApi.Controllers;
-
-  // [Route("api/[controller]")]
-  // [ApiController]
-  // [Authorize]
+// [ApiExplorerSettings(IgnoreApi = true)]
   public class AccountController : Controller
-  {
-    // private readonly ParksApiContext _db;
-
-    // public AccountController(ParksApiContext db)
-    // {
-    //   _db = db;
-    // }
+  {  
 
     [HttpGet("/")]
     public IActionResult Login(string message)
@@ -76,7 +64,7 @@ namespace ParksApi.Controllers;
     
         using (var httpClient = new HttpClient())
         {
-          Console.WriteLine(httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", jwt));
+          httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", jwt);
           using (var response = await httpClient.GetAsync("https://localhost:5000/api/parks"))
           {
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
