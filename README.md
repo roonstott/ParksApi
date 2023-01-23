@@ -37,21 +37,20 @@ _This is an API application that returns information about state and national pa
  
   
   ```
-       {
-  "Logging": {
-    "LogLevel": {
-      "Default": "Information",
-      "Microsoft.AspNetCore": "Warning"
-    }
-  },
-  "AllowedHosts": "*",
-  "ConnectionStrings": {
-    "DefaultConnection": "Server=localhost;Port=3306;database=parks_api;uid=[Your User ID];[Your Password];"
-  }
-} 
-  ```
-  
-  
+      {
+        "Logging": {
+          "LogLevel": {
+             "Default": "Information",
+             "Microsoft.AspNetCore": "Warning"
+          }
+        },
+        "AllowedHosts": "*",
+        "ConnectionStrings": {
+           "DefaultConnection": "Server=localhost;Port=3306;database=parks_api;uid=[Your User ID];[Your Password];"
+        }
+      } 
+
+  ```  
   
 * _Entity Framework Core has tools to automatically build the database schema utiliaing object mapping. To build the database, open a terminal, go to the `ParksApi` directory: `$ cd ParksApi` and enter the following commands_
 
@@ -68,6 +67,7 @@ _This is an API application that returns information about state and national pa
   _https://localhost:5000_
   
  * _This will direct you to the login page. This is a dummy login that is not actually secure-- it is a placeholder in order to build out the JWT issuing and authentication functionality. The username and secret are both the same word: `secret`._
+ 
  ```
   username: secret
   password: secret
@@ -79,7 +79,7 @@ _This is an API application that returns information about state and national pa
     https://localhost:5000
  ```
  
- * _On the Swagger page, you will see tabs for all of the API endpoints, organized by the two database tables: `Parks` and `States`. Click the green `Authorize` button at the top right corner of the page, then enter and submit the JWT. You may now click any of the endpoints and will be authorized to make API calls. 
+ * _On the Swagger page, you will see tabs for all of the API endpoints, organized by the two database tables: `Parks` and `States`. Click the green `Authorize` button at the top right corner of the page, then enter and submit the JWT. You may now click any of the endpoints and will be authorized to make API calls._
  
 ---------------------------------------------------------------
 
@@ -93,6 +93,7 @@ POST /api/{component}
 GET /api/{component}/{id}
 PUT /api/{component}/{id}
 DELETE /api/{component}/{id}
+```
 
 ..........................................................................................
 
@@ -117,6 +118,7 @@ DELETE /api/Parks/{id}
 #### Example Query
 ```
 https://localhost:5000/api/Parks/?name=rain&stateName=wa
+
 ```
 
 #### Sample JSON Response
@@ -168,8 +170,6 @@ https://localhost:5000/api/States/?name=washington
   
   * note: "parks" is a navigation property and will always be null
 ```
-
-..........................................................................................
  
 
 ## Known Bugs
