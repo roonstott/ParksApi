@@ -97,7 +97,7 @@ _This is an API application that returns information about state and national pa
  
 ![Authorizing at Swagger](./README_images/swagger_auth_1.jpg)
 
-* _Enter the JWT that you copied before. You may now click any of the endpoints and will be authorized to make API calls.__
+* _Enter the JWT that you copied before. You may now click any of the endpoints and will be authorized to make API calls. Refer to the sections below for documentation of all API endpoints. By clicking on the tabs that are labeled with the different API methods, you can select the type of API request method that you want to use. You do not need to manually enter the URL, because the Swagger UI provides text boxes for each request type, as needed. Refer to the documentation below. Note that for PUT and POST requests you need to enter a JSON body formatted appropriately for the class that you are referencing. Details are in the documentation below._
 
 ![Authorizing at Swagger](./README_images/swagger_auth_2.jpg)
 
@@ -141,19 +141,22 @@ PUT /api/Parks/{id}
 DELETE /api/Parks/{id}
 ```
 
-## Path Parameters
+## GET Requests
+_Get requests can return ALL parks `https://localhost:5000/api/Parks`, they can return a single park based on ID `https://localhost:5000/api/parks/2`, or they can return a subset of the parks based on a search query `https://localhost:5000/api/Parks/?name=rain&stateName=wa`._
+
+### Search Query Parameters
 | Parameter | Type | Default | Required | Description |
 | :---: | :---: | :---: | :---: | --- |
 | name | string | none | false | Return matches by name. Partial queries supported, so long as name contains query |
 | stateName | string | none | false | Return any parks whose stateName property contains query  |
 
-## Example Query
+### Example GET Query URL
 ```
 https://localhost:5000/api/Parks/?name=rain&stateName=wa
 
 ```
 
-## Sample JSON Response
+### Sample JSON GET Response
 ```
 {
   "parkId": 3,
@@ -164,10 +167,60 @@ https://localhost:5000/api/Parks/?name=rain&stateName=wa
   "state": null
 }
 
-
 * note: "state" is a navigation property for EF Core and will always be null
+```
+
+## POST Requests
+_To POST a new park entry, you will enter the URL `https://localhost:5000/api/Parks` along with a JSON body for the entry that you are making. Note that you must not inlcue a "parkId" parameter, because this is automatically assigned by the database. You also do not need to enter a "state" parameter because this is a navigation property for EF core and will always be null_
+
+### Sample POST URL
+```
+https://localhost:5000/api/Parks
+```
+
+### Sample POST JSON Body
+```
+{
+  "name": "Mount Shasta",
+  "description": "A very tall volcano in northern California",
+  "stateId": 3,
+  "stateName": "California"
+}
+```
+
+## PUT Requests
+_Use a PUT request to edit an existing entry. Use the URL `https://localhost:5000/api/Parks/{id}. Even if you are only editing one parameter of the object, you must provide an entire JSON body, including all unchanged fields. This seems redundant, but is necessary. Note that, unlike for POST requests, you absolutely MUST include a parkId property, because this is how the database knows WHICH entry you are updating. State can still be omitted, because it is a navigation property and it is null._
+
+### Sample PUT URL
+```
+https://localhost:5000/api/Parks/3
+```
+
+### Sample PUT JSON Body
+```
+{
+  "parkId": 3,
+  "name": "Mount Rainier",
+  "description": "This park is in Washington, not California, but I've chosen to update this once truthful entry and turn it into a lie. Note that parkIc is included and is the same as before.",
+  "stateId": 3,
+  "stateName": "California"
+}
+```
+
+## DELETE Requests
+_You can delete a specific entry by using the DELETE method and including, in the URL, the parkId of the entry that you want to delete._
+
+### Sample DELETE URL
 
 ```
+https://localhost:5000/api/Parks/3
+
+*This will delete "Mount Rainier" (parkId: 3) from our database
+```
+
+
+
+
 
  -------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -182,19 +235,22 @@ PUT /api/State/{id}
 DELETE /api/State/{id}
 ```
 
-## Path Parameters
+## GET Requests
+_GET requests can return ALL states `https://localhost:5000/api/States`, they can return a single state based on ID `https://localhost:5000/api/States/2`, or they can return a subset of the states based on a search query `https://localhost:5000/api/States/?name=washington`._
+
+## Search Query Parameters
 | Parameter | Type | Default | Required | Description |
 | :---: | :---: | :---: | :---: | --- |
 | name | string | none | false | Return matches by name.
 
-## Example Query
+## Example GET Query URL
 ```
 https://localhost:5000/api/States/?name=washington
 ```
 
-## Sample JSON Response
+## Sample JSON Response for GET
 ```
-{
+  {
     "stateId": 2,
     "name": "Washington",
     "parks": null
@@ -202,7 +258,49 @@ https://localhost:5000/api/States/?name=washington
   
   * note: "parks" is a navigation property and will always be null
 ```
- 
+
+## POST Requests
+_To add a new state entry to the database. Note that `stateId` will be generated automatically by the database, and should be omitted entirely. Note also that `parks` is a navigation property that will always be "null," so omit the `parks` as well._
+
+## Example POST URL
+```
+https://localhost:5000/api/States
+```
+
+## Example POST JSON body
+
+```
+  {
+    "name": "Washington"
+  }
+```
+
+## PUT Requests
+_Use a PUT request to edit an existing entry. Use the URL `https://localhost:5000/api/States/{id}`. Even if you are only editing one parameter of the object, you must provide an entire JSON body, including all unchanged fields. This seems redundant, but is necessary. Note that, unlike for POST requests, you absolutely MUST include a `stateId` property, because this is how the database knows WHICH entry you are updating. `parks` can still be omitted, because it is a navigation property and it is null_
+
+## Example PUT URL
+```
+https://localhost:5000/api/States/2
+```
+## Example PUT JSON Body
+```
+  {
+    "stateId": 2,
+    "name": "Washing-TUN"
+  }
+```
+## DELETE Requests
+_You can delete a specific entry by using the DELETE method and including, in the URL, the stateId of the entry that you want to delete._
+
+### Sample DELETE URL
+
+```
+https://localhost:5000/api/States/2
+
+*This will delete "Washing-TUN" (parkId: 2) from our database
+```
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## Known Bugs
 
