@@ -60,7 +60,7 @@ _This is an API application that returns information about state and national pa
     $ dotnet ef database update   
 ```
 
-* _While still in the `ParksApi` directory, enter the command `$ dotnet run`. This will start the local web server. Enter the URL https://localhost:5000 in a browser window. You are now interacting with the web app_
+* _While still in the `ParksApi` directory, enter the command `$ dotnet run`. This will start the local web server. Enter the URL https://localhost:5000/ in a browser window. You are now interacting with the web app_
   
   ```
         $ dotnet run
