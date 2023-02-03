@@ -2,7 +2,7 @@
 
 #### By _Robert Onstott_
 
-#### _Parks API is a service to provide information about state and national parks in the US. Parks are searchable by the state in which they or located or by park name, using a search query. The API incorporates authentication with a JWT Bearer token, which is generated at the login page._
+#### _Parks API is a service to provide information about state and national parks in the US. Parks are searchable by the state in which they or located or by park name, using a search query. The API incorporates authentication with a JWT Bearer token, which is generated at the login page. The JWT token is not fully functional at this time, due to unresolved problems with authorizations and permissions, so the `[Authorize]` attributes have been commented out for the controller classses_
 
 ## Technologies Used
 
@@ -70,6 +70,14 @@ _This is an API application that returns information about state and national pa
  -------------------------------------------------------------------------------------------------------------------------------------------------------
   
   # Logging In And Getting Your Token
+  
+ ```
+ The JWT token is not currently functional
+ ```
+ 
+ ```
+ You may SKIP the LOGIN & JWT TOKEN steps and go straight to making API calls with Swagger or Postman
+ ```
   
  * _This will direct you to the login page. This is a dummy login that is not actually secure-- it is a placeholder in order to build out the JWT issuing    and authentication functionality. The username and secret are both the same word: `secret`._
  
@@ -201,7 +209,7 @@ https://localhost:5000/api/Parks/3
 {
   "parkId": 3,
   "name": "Mount Rainier",
-  "description": "This park is in Washington, not California, but I've chosen to update this once truthful entry and turn it into a lie. Note that parkIc is included and is the same as before.",
+  "description": "This park is in Washington, not California, but I've chosen to update this once truthful entry and turn it into a lie. Note that parkId is included and is the same as before.",
   "stateId": 3,
   "stateName": "California"
 }
@@ -251,16 +259,24 @@ https://localhost:5000/api/States/?name=washington
 ## Sample JSON Response for GET
 ```
   {
-    "stateId": 2,
-    "name": "Washington",
-    "parks": null
-  }
+  "stateId": 2,
+  "name": "Washington",
+  "parks": [
+    {
+      "parkId": 3,
+      "name": "Mount Rainier",
+      "description": "A 14,410 active volcano with extensive (but shrinking) glacier fields. Beloved for alpine meadows carpeted in summer wildflowers",
+      "stateId": 2,
+      "stateName": "Washington",
+      "state": null
+    }
+  ]
+}
   
-  * note: "parks" is a navigation property and will always be null
 ```
 
 ## POST Requests
-_To add a new state entry to the database. Note that `stateId` will be generated automatically by the database, and should be omitted entirely. Note also that `parks` is a navigation property that will always be "null," so omit the `parks` as well._
+_To add a new state entry to the database. Note that `stateId` will be generated automatically by the database, and should be omitted entirely. `Parks` can be also be omitted, because it is represents a many-to-many relationship that is fulfilled automatically by the join entities in EF CORE_
 
 ## Example POST URL
 ```
@@ -276,7 +292,7 @@ https://localhost:5000/api/States
 ```
 
 ## PUT Requests
-_Use a PUT request to edit an existing entry. Use the URL `https://localhost:5000/api/States/{id}`. Even if you are only editing one parameter of the object, you must provide an entire JSON body, including all unchanged fields. This seems redundant, but is necessary. Note that, unlike for POST requests, you absolutely MUST include a `stateId` property, because this is how the database knows WHICH entry you are updating. `parks` can still be omitted, because it is a navigation property and it is null_
+_Use a PUT request to edit an existing entry. Use the URL `https://localhost:5000/api/States/{id}`. Even if you are only editing one parameter of the object, you must provide an entire JSON body, including all unchanged fields. This seems redundant, but is necessary. Note that, unlike for POST requests, you absolutely MUST include a `stateId` property, because this is how the database knows WHICH entry you are updating. `Parks` can be omitted, because it is a many-to-many relationship that is fulfilled automatically by the join entities in EF CORE_
 
 ## Example PUT URL
 ```
@@ -304,7 +320,7 @@ https://localhost:5000/api/States/2
 
 ## Known Bugs
 
-* _No known bugs at this time_
+* _JWT bearer tokens are not working at this time. The tokens are are issued, but due to an unresolved configuration issue they do not grant permission on any computer but my own. For that reason, the JWT [Authorize] attributes are commented out at the top of each the controller claseses_
 
 ## License
 
