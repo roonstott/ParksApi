@@ -8,7 +8,7 @@ namespace ParksApi.Controllers
 {
   [Route("api/[controller]")]
   [ApiController]
-  [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+  // [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
   public class StatesController : ControllerBase
   {
     private readonly ParksApiContext _db;
